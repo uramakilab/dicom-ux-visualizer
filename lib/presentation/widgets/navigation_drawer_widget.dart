@@ -1,3 +1,4 @@
+import 'package:dicom_viewer/presentation/palette/colors.dart';
 import 'package:flutter/material.dart';
 
 import 'drawer_option.dart';
@@ -14,6 +15,7 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget> {
   Widget build(BuildContext context) {
     return Drawer(
       child: Material(
+        color: ColorPalette.primary,
         child: ListView(
           children: [
             DrawerOption(

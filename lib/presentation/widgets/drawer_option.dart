@@ -1,3 +1,4 @@
+import 'package:dicom_viewer/presentation/palette/colors.dart';
 import 'package:dicom_viewer/presentation/routes/smart_router.dart';
 import 'package:flutter/material.dart';
 
@@ -24,6 +25,10 @@ class _DrawerOptionState extends State<DrawerOption> {
     return Column(
       children: [
         ListTile(
+          tileColor: ColorPalette.primary,
+          iconColor: ColorPalette.special,
+          textColor: ColorPalette.text,
+          
           title: Text(widget.title),
           leading: Icon(widget.icon),
           onTap: () {
@@ -34,7 +39,9 @@ class _DrawerOptionState extends State<DrawerOption> {
             }
           },
         ),
-        Divider()
+        Divider(
+          color: ColorPalette.secondary,
+        )
       ],
     );
   }

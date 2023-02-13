@@ -14,14 +14,23 @@ class _ChooseFileState extends State<ChooseFile> {
   @override
   void initState() {
     super.initState();
+    _createFiles();
     _getFiles();
+  }
+
+  void _createFiles() async {
+    Directory dir = await getApplicationDocumentsDirectory();
+    for (int i = 0; i < 2; i++) {
+      File('${dir.path}/myData/data${[i]}.txt');
+    }
   }
 
   void _getFiles() async {
     Directory dir = await getApplicationDocumentsDirectory();
+
+    File('${dir.path}/data.txt');
     print(dir.toString());
-    files = await Directory('${dir.path}/flutter_assets').list().toList();
-    //files = await Directory('assets/dicom/').list().toList();
+    files = await Directory('${dir.path}').list().toList();
     print(files);
   }
 
@@ -29,15 +38,37 @@ class _ChooseFileState extends State<ChooseFile> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Center(child: Text('your files')),
+        title: Text('your files'),
       ),
       body: ListView(
         children: [
           if (files.isNotEmpty) ...[
             for (int i = 0; i < files.length; i++) ...[
+              SizedBox(
+                height: 10,
+              ),
               Center(
-                child: Center(child: Text(files[i].path.toString())),
-              )
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                  child: Container(
+                    decoration: BoxDecoration(
+                        border: Border.all(
+                          color: Colors.black,
+                        ),
+                        borderRadius: BorderRadius.circular(18)),
+                    child: ListTile(
+                      title: Text(
+                        files[i].path,
+                        maxLines: 1,
+                      ),
+                      subtitle: Text(
+                        files[i].absolute.path,
+                        maxLines: 1,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
             ],
           ] else ...[
             Center(

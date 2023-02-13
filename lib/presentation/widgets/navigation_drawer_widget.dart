@@ -15,7 +15,7 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget> {
     return Drawer(
       child: Material(
         child: ListView(
-          children: const [
+          children: [
             DrawerOption(
               title: 'home',
               icon: Icons.home,
@@ -30,6 +30,7 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget> {
               title: 'files',
               icon: Icons.file_open,
               route: '/files',
+              canBack: true,
             ),
           ],
         ),

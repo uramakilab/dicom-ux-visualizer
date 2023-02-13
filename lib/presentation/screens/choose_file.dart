@@ -12,6 +12,7 @@ class ChooseFile extends StatefulWidget {
 
 class _ChooseFileState extends State<ChooseFile> {
   late List<FileSystemEntity> files = [];
+  bool isLoading = true;
   @override
   void initState() {
     super.initState();
@@ -33,6 +34,9 @@ class _ChooseFileState extends State<ChooseFile> {
     print(dir.toString());
     files = await Directory('${dir.path}').list().toList();
     print(files);
+    setState(() {
+      isLoading = false;
+    });
   }
 
   @override
@@ -48,9 +52,11 @@ class _ChooseFileState extends State<ChooseFile> {
           ),
         ),
       ),
-      body: files.isEmpty
+      body: isLoading
           ? Center(
-              child: CircularProgressIndicator(),
+              child: CircularProgressIndicator(
+                color: ColorPalette.special,
+              ),
             )
           : ListView(
               children: [

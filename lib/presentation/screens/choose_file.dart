@@ -82,7 +82,7 @@ class _ChooseFileState extends State<ChooseFile> {
                             ),
                           ),
                           subtitle: Text(
-                            files[i].absolute.path,
+                            files[i].absolute.parent.path,
                             maxLines: 1,
                             style: TextStyle(
                               color: ColorPalette.special,

@@ -15,7 +15,7 @@ def getDicom():
         filename = secure_filename(file.filename)
         file.save(os.path.dirname(os.path.abspath(__file__)) + '/uploads/' + filename)
         return jsonify({
-            "message": "delivered!"
+            "message": "file delivered!"
         })
 
 @app.route("/")

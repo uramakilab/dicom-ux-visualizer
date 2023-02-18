@@ -34,7 +34,6 @@ class _ChooseFromStorageState extends State<ChooseFromStorage> {
     );
     choice = result;
     _postData(url + '/upload', choice!.files);
-    //print(jsonDecode(data));
 
     setState(() {
       isLoading = false;
@@ -47,18 +46,18 @@ class _ChooseFromStorageState extends State<ChooseFromStorage> {
   }
 
   Future _postData(url, List<PlatformFile> content) async {
-    List<int> data = content[0].bytes!.toList();
-    final request = MultipartRequest("POST", Uri.parse(url));
-    final headers = {"Content-type": "multipart/form-data"};
-    request.files.add(MultipartFile(
-        'file', content[0].readStream!, content[0].size,
-        filename: content[0].name));
-    request.headers.addAll(headers);
-    final response = await request.send();
-    Response res = await Response.fromStream(response);
-    final resJson = jsonDecode(res.body);
-    message = resJson["message"];
-    print(message);
+    content.forEach((element) async {
+      final request = MultipartRequest("POST", Uri.parse(url));
+      final headers = {"Content-type": "multipart/form-data"};
+      request.files.add(MultipartFile('file', element.readStream!, element.size,
+          filename: element.name));
+      request.headers.addAll(headers);
+      final response = await request.send();
+      Response res = await Response.fromStream(response);
+      final resJson = jsonDecode(res.body);
+      message = resJson["message"];
+      print(message);
+    });
   }
 
   @override

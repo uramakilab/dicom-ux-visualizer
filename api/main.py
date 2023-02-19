@@ -1,5 +1,6 @@
 import os
 import pydicom
+import base64
 from flask import Flask, request, redirect, jsonify
 from werkzeug.utils import secure_filename
 
@@ -27,7 +28,7 @@ def dicomParse():
     files = os.listdir(dicoms)
     ds = pydicom.dcmread(dicoms + files[int(args)])
 
-    pixelData = ds.PixelData
+    pixelData = base64.b64encode(ds.PixelData)
     transferSyntaxUid = ds.file_meta.TransferSyntaxUID
     transferSyntaxUidName = transferSyntaxUid.name
     patientName = ds.PatientName

@@ -27,6 +27,7 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget> {
               title: 'draw',
               icon: Icons.brush_outlined,
               route: '/draw',
+              canBack: true,
             ),
             DrawerOption(
               title: 'files',

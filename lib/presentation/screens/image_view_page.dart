@@ -16,6 +16,20 @@ class ImageViewPage extends StatefulWidget {
 }
 
 class _ImageViewPageState extends State<ImageViewPage> {
+
+  late Uint8List? _imageBytes;
+
+  @override
+  void initState() {
+    _getImage();
+    super.initState();
+  }
+
+  void _getImage() {
+    _imageBytes = base64.decode(widget.dicom!.pixelData.replaceAll(RegExp(r"'"), "").replaceAll(RegExp(r"="), ''));
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,11 +45,7 @@ class _ImageViewPageState extends State<ImageViewPage> {
       ),
       body: ListView(
         children: [
-          SizedBox(
-            height: 400,
-            width: 400,
-            child: Placeholder(),
-          ),
+          Image.memory(Uint8List.fromList(_imageBytes!)),
           Padding(
             padding: const EdgeInsets.only(top: 10),
             child: DicomDetailWidget(

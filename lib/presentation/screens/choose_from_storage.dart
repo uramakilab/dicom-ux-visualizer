@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:dicom_viewer/logic/dtos/dicom_dto.dart';
+import 'package:flutter/foundation.dart';
 import 'package:http/http.dart';
 import 'package:dicom_viewer/presentation/palette/colors.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +18,7 @@ class ChooseFromStorage extends StatefulWidget {
 }
 
 class _ChooseFromStorageState extends State<ChooseFromStorage> {
-  final url = 'https://9bad-2804-14d-90af-93a5-8198-12dd-4bee-47f2.sa.ngrok.io';
+  final url = 'https://c008-2804-14d-90af-93a5-8198-12dd-4bee-47f2.sa.ngrok.io';
   late FilePickerResult? choice;
   String? message;
   bool isLoading = true;
@@ -87,14 +89,14 @@ class _ChooseFromStorageState extends State<ChooseFromStorage> {
                   ),
                   GestureDetector(
                     onTap: (() async {
-                      print(
-                          '${choice!.files[i].name}: ${choice!.files[i].bytes!.length}');
+                      var data = await _getData(url);
+                      var dicom = DicomDto.fromJson(json.decode(data)).toDomain();
+                      print(dicom.pixelData);
+                      
+                      /*Uint8List? pixelData = decodedData['pixel-data'];
                       Navigator.of(context).push(MaterialPageRoute(
                           builder: (context) =>
-                              ImageViewPage(bytes: choice!.files[i].bytes)));
-                      /*var data = await _getData(url);
-                      var decodedData = jsonDecode(data);
-                      print(decodedData['query']);*/
+                              ImageViewPage(bytes: pixelData)));*/
                     }),
                     child: Center(
                       child: Padding(

@@ -12,7 +12,7 @@ class DicomDetailWidget extends StatefulWidget {
   final String title;
   final String label;
   final IconData icon;
-  
+
   @override
   State<DicomDetailWidget> createState() => _DicomDetailWidgetState();
 }
@@ -32,7 +32,9 @@ class _DicomDetailWidgetState extends State<DicomDetailWidget> {
           leading: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Icon(widget.icon,),
+              Icon(
+                widget.icon,
+              ),
             ],
           ),
         ),

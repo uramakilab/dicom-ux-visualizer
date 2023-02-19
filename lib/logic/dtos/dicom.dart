@@ -32,7 +32,7 @@ class Dicom {
         instanceCreationDate: instanceCreationDate,
         instanceCreationTime: instanceCreationTime,
         modality: modality,
-        );
+      );
 
   Dicom({
     required this.pixelData,
@@ -61,7 +61,8 @@ class Dicom {
     return Dicom(
       pixelData: pixelData ?? this.pixelData,
       transferSyntaxUid: transferSyntaxUid ?? this.transferSyntaxUid,
-      transferSyntaxUidName: transferSyntaxUidName ?? this.transferSyntaxUidName,
+      transferSyntaxUidName:
+          transferSyntaxUidName ?? this.transferSyntaxUidName,
       patientName: patientName ?? this.patientName,
       imageType: imageType ?? this.imageType,
       patientId: patientId ?? this.patientId,
@@ -69,7 +70,7 @@ class Dicom {
       instanceCreationDate: instanceCreationDate ?? this.instanceCreationDate,
       instanceCreationTime: instanceCreationTime ?? this.instanceCreationTime,
       modality: modality ?? this.modality,
-      );
+    );
   }
 
   @override

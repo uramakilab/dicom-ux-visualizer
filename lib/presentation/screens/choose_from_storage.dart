@@ -1,13 +1,9 @@
 import 'dart:convert';
-
 import 'package:dicom_viewer/logic/dtos/dicom_dto.dart';
-import 'package:flutter/foundation.dart';
 import 'package:http/http.dart';
 import 'package:dicom_viewer/presentation/palette/colors.dart';
 import 'package:flutter/material.dart';
-
 import 'package:file_picker/file_picker.dart';
-
 import 'image_view_page.dart';
 
 class ChooseFromStorage extends StatefulWidget {
@@ -18,7 +14,7 @@ class ChooseFromStorage extends StatefulWidget {
 }
 
 class _ChooseFromStorageState extends State<ChooseFromStorage> {
-  final url = 'https://d826-2804-14d-90af-93a5-d864-e5eb-c983-7bb4.sa.ngrok.io';
+  final url = 'https://204d-2804-14d-90af-93a5-d864-e5eb-c983-7bb4.sa.ngrok.io';
   late FilePickerResult? choice;
   String? message;
   bool isLoading = true;

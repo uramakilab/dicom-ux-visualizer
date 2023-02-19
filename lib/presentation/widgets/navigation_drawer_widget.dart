@@ -20,17 +20,17 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget> {
           children: [
             DrawerOption(
               title: 'home',
-              icon: Icons.home,
+              icon: Icons.home_outlined,
               route: '/',
             ),
             DrawerOption(
               title: 'draw',
-              icon: Icons.brush,
+              icon: Icons.brush_outlined,
               route: '/draw',
             ),
             DrawerOption(
               title: 'files',
-              icon: Icons.file_open,
+              icon: Icons.file_open_outlined,
               route: '/files',
               canBack: true,
             ),

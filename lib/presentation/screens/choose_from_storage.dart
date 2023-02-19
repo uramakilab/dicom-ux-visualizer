@@ -18,7 +18,7 @@ class ChooseFromStorage extends StatefulWidget {
 }
 
 class _ChooseFromStorageState extends State<ChooseFromStorage> {
-  final url = 'https://c008-2804-14d-90af-93a5-8198-12dd-4bee-47f2.sa.ngrok.io';
+  final url = 'https://644a-2804-14d-90af-93a5-d864-e5eb-c983-7bb4.sa.ngrok.io';
   late FilePickerResult? choice;
   String? message;
   bool isLoading = true;
@@ -91,12 +91,9 @@ class _ChooseFromStorageState extends State<ChooseFromStorage> {
                     onTap: (() async {
                       var data = await _getData(url);
                       var dicom = DicomDto.fromJson(json.decode(data)).toDomain();
-                      print(dicom.pixelData);
-                      
-                      /*Uint8List? pixelData = decodedData['pixel-data'];
                       Navigator.of(context).push(MaterialPageRoute(
                           builder: (context) =>
-                              ImageViewPage(bytes: pixelData)));*/
+                              ImageViewPage(dicom: dicom)));
                     }),
                     child: Center(
                       child: Padding(

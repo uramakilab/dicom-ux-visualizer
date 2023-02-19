@@ -22,9 +22,18 @@ def getDicom():
 @app.route("/")
 def dicomParse():
     files = os.listdir(dicoms)
-    test = pydicom.dcmread(dicoms + files[0])
+    ds = pydicom.dcmread(dicoms + files[0])
+    
+    pixelData = ds.PixelData
+    transferSyntaxUid = ds.file_meta.TransferSyntaxUID
+    transferSyntaxUidName = transferSyntaxUid.name
+    patientName = ds.PatientName
+
     return jsonify({
-        "pixelData":f"{test.PixelData}"
+        "pixelData":f"{pixelData}",
+        "transferSyntaxUid":f"{transferSyntaxUid}",
+        "transferSyntaxUidName":f"{transferSyntaxUidName}",
+        "patientName":f"{patientName}",
     })
 
 if __name__ == '__main__':

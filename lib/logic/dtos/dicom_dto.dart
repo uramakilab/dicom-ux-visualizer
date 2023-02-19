@@ -2,15 +2,42 @@ import 'package:dicom_viewer/logic/dtos/dicom.dart';
 import 'package:flutter/foundation.dart';
 
 class DicomDto {
-  const DicomDto._(
-      {required this.pixelData, required this.transferSyntaxUid, required this.transferSyntaxUidName, required this.patientName});
+  const DicomDto._({
+    required this.pixelData,
+    required this.transferSyntaxUid,
+    required this.transferSyntaxUidName,
+    required this.patientName,
+    required this.imageType,
+    required this.patientId,
+    required this.fileName,
+    required this.instanceCreationDate,
+    required this.instanceCreationTime,
+    required this.modality,
+  });
 
   final String pixelData;
   final String transferSyntaxUid;
   final String transferSyntaxUidName;
   final String patientName;
+  final String imageType;
+  final String patientId;
+  final String fileName;
+  final String instanceCreationDate;
+  final String instanceCreationTime;
+  final String modality;
 
-  DicomDto({required this.pixelData, required this.transferSyntaxUid, required this.transferSyntaxUidName, required this.patientName});
+  DicomDto({
+    required this.pixelData,
+    required this.transferSyntaxUid,
+    required this.transferSyntaxUidName,
+    required this.patientName,
+    required this.imageType,
+    required this.patientId,
+    required this.fileName,
+    required this.instanceCreationDate,
+    required this.instanceCreationTime,
+    required this.modality,
+  });
 
   static DicomDto fromJson(Map<String, dynamic> json) {
     return DicomDto._(
@@ -18,6 +45,12 @@ class DicomDto {
       transferSyntaxUid: json['transferSyntaxUid'],
       transferSyntaxUidName: json['transferSyntaxUidName'],
       patientName: json['patientName'],
+      imageType: json['imageType'],
+      patientId: json['patientId'],
+      fileName: json['fileName'],
+      instanceCreationDate: json['instanceCreationDate'],
+      instanceCreationTime: json['instanceCreationTime'],
+      modality: json['modality'],
     );
   }
 
@@ -27,6 +60,12 @@ class DicomDto {
       'transferSyntaxUid': transferSyntaxUid,
       'transferSyntaxUidName': transferSyntaxUidName,
       'patientName': patientName,
+      'imageType': imageType,
+      'patientId': patientId,
+      'fileName': fileName,
+      'instanceCreationDate': instanceCreationDate,
+      'instanceCreationTime': instanceCreationTime,
+      'modality': modality,
     };
   }
 
@@ -36,7 +75,13 @@ class DicomDto {
       transferSyntaxUid: domain.transferSyntaxUid,
       transferSyntaxUidName: domain.transferSyntaxUidName,
       patientName: domain.patientName,
-      );
+      imageType: domain.imageType,
+      patientId: domain.patientId,
+      fileName: domain.fileName,
+      instanceCreationDate: domain.instanceCreationDate,
+      instanceCreationTime: domain.instanceCreationTime,
+      modality: domain.modality,
+    );
   }
 
   Dicom toDomain() {
@@ -45,25 +90,44 @@ class DicomDto {
       transferSyntaxUid: transferSyntaxUid,
       transferSyntaxUidName: transferSyntaxUidName,
       patientName: patientName,
-      );
+      imageType: imageType,
+      patientId: patientId,
+      fileName: fileName,
+      instanceCreationDate: instanceCreationDate,
+      instanceCreationTime: instanceCreationTime,
+      modality: modality,
+    );
   }
 
   DicomDto copyWith({
-    String? pixelData,    
+    String? pixelData,
     String? transferSyntaxUid,
     String? transferSyntaxUidName,
     String? patientName,
+    String? imageType,
+    String? patientId,
+    String? fileName,
+    String? instanceCreationDate,
+    String? instanceCreationTime,
+    String? modality,
   }) {
     return DicomDto(
       pixelData: pixelData ?? this.pixelData,
       transferSyntaxUid: transferSyntaxUid ?? this.transferSyntaxUid,
-      transferSyntaxUidName: transferSyntaxUidName ?? this.transferSyntaxUidName,
+      transferSyntaxUidName:
+          transferSyntaxUidName ?? this.transferSyntaxUidName,
       patientName: patientName ?? this.patientName,
-      );
+      imageType: imageType ?? this.imageType,
+      patientId: patientId ?? this.patientId,
+      fileName: fileName ?? this.fileName,
+      instanceCreationDate: instanceCreationDate ?? this.instanceCreationDate,
+      instanceCreationTime: instanceCreationTime ?? this.instanceCreationTime,
+      modality: modality ?? this.modality,
+    );
   }
 
   @override
   String toString() {
-    return 'DicomDto(pixelData: $pixelData, transferSyntaxUid: $transferSyntaxUid, transferSyntaxUidName: $transferSyntaxUidName, patientName: $patientName)';
+    return 'DicomDto(pixelData: $pixelData, transferSyntaxUid: $transferSyntaxUid, transferSyntaxUidName: $transferSyntaxUidName, patientName: $patientName, imageType: $imageType, patientId: $patientId, fileName: $fileName,instanceCreationDate: $instanceCreationDate, instanceCreationTime: $instanceCreationTime, modality: $modality)';
   }
 }

@@ -26,10 +26,15 @@ class _DicomDetailWidgetState extends State<DicomDetailWidget> {
           tileColor: ColorPalette.primary,
           iconColor: ColorPalette.special,
           textColor: ColorPalette.text,
-          
+          dense: true,
           subtitle: Text(widget.title),
           title: Text('${widget.label}:'),
-          leading: Icon(widget.icon),
+          leading: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(widget.icon,),
+            ],
+          ),
         ),
         Divider(
           color: ColorPalette.secondary,

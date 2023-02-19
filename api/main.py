@@ -28,12 +28,24 @@ def dicomParse():
     transferSyntaxUid = ds.file_meta.TransferSyntaxUID
     transferSyntaxUidName = transferSyntaxUid.name
     patientName = ds.PatientName
+    imageType = ds.ImageType
+    patientId = ds.PatientID
+    fileName =  ds.filename.split('/')[-1]
+    instanceCreationDate = ds.InstanceCreationDate
+    instanceCreationTime = ds.InstanceCreationTime
+    modality = ds.Modality
 
     return jsonify({
         "pixelData":f"{pixelData}",
         "transferSyntaxUid":f"{transferSyntaxUid}",
         "transferSyntaxUidName":f"{transferSyntaxUidName}",
         "patientName":f"{patientName}",
+        "imageType":f"{imageType}",
+        "patientId":f"{patientId}",
+        "fileName":f"{fileName}",
+        "instanceCreationDate":f"{instanceCreationDate}",
+        "instanceCreationTime":f"{instanceCreationTime}",
+        "modality":f"{modality}",
     })
 
 if __name__ == '__main__':

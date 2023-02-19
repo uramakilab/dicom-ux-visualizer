@@ -18,7 +18,7 @@ class ChooseFromStorage extends StatefulWidget {
 }
 
 class _ChooseFromStorageState extends State<ChooseFromStorage> {
-  final url = 'https://644a-2804-14d-90af-93a5-d864-e5eb-c983-7bb4.sa.ngrok.io';
+  final url = 'https://d826-2804-14d-90af-93a5-d864-e5eb-c983-7bb4.sa.ngrok.io';
   late FilePickerResult? choice;
   String? message;
   bool isLoading = true;
@@ -36,10 +36,6 @@ class _ChooseFromStorageState extends State<ChooseFromStorage> {
     );
     choice = result;
     _postData(url + '/upload', choice!.files);
-
-    setState(() {
-      isLoading = false;
-    });
   }
 
   Future _getData(url) async {
@@ -59,6 +55,9 @@ class _ChooseFromStorageState extends State<ChooseFromStorage> {
       final resJson = jsonDecode(res.body);
       message = resJson["message"];
       print(message);
+      setState(() {
+        isLoading = false;
+      });
     });
   }
 
@@ -90,10 +89,10 @@ class _ChooseFromStorageState extends State<ChooseFromStorage> {
                   GestureDetector(
                     onTap: (() async {
                       var data = await _getData(url);
-                      var dicom = DicomDto.fromJson(json.decode(data)).toDomain();
+                      var dicom =
+                          DicomDto.fromJson(json.decode(data)).toDomain();
                       Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) =>
-                              ImageViewPage(dicom: dicom)));
+                          builder: (context) => ImageViewPage(dicom: dicom)));
                     }),
                     child: Center(
                       child: Padding(

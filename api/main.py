@@ -23,8 +23,9 @@ def getDicom():
 
 @app.route("/")
 def dicomParse():
+    args = request.args.get("item")
     files = os.listdir(dicoms)
-    ds = pydicom.dcmread(dicoms + files[0])
+    ds = pydicom.dcmread(dicoms + files[int(args)])
 
     pixelData = ds.PixelData
     transferSyntaxUid = ds.file_meta.TransferSyntaxUID
@@ -36,6 +37,7 @@ def dicomParse():
     instanceCreationDate = ds.InstanceCreationDate
     instanceCreationTime = ds.InstanceCreationTime
     modality = ds.Modality
+    
 
     return jsonify({
         "pixelData": f"{pixelData}",
@@ -47,6 +49,7 @@ def dicomParse():
         "fileName": f"{fileName}",
         "instanceCreationDate": f"{instanceCreationDate}",
         "instanceCreationTime": f"{instanceCreationTime}",
+        #"modality": f"{args}",
         "modality": f"{modality}",
     })
 

@@ -1,5 +1,7 @@
 class Dicom {
   final String pixelData;
+  final String rows;
+  final String columns;
   final String transferSyntaxUid;
   final String transferSyntaxUidName;
   final String patientName;
@@ -11,6 +13,8 @@ class Dicom {
   final String modality;
   factory Dicom.create({
     required String pixelData,
+    required String rows,
+    required String columns,
     required String transferSyntaxUid,
     required String transferSyntaxUidName,
     required String patientName,
@@ -23,6 +27,8 @@ class Dicom {
   }) =>
       Dicom(
         pixelData: pixelData,
+        rows: rows,
+        columns: columns,
         transferSyntaxUid: transferSyntaxUid,
         transferSyntaxUidName: transferSyntaxUidName,
         patientName: patientName,
@@ -36,6 +42,8 @@ class Dicom {
 
   Dicom({
     required this.pixelData,
+    required this.rows,
+    required this.columns,
     required this.transferSyntaxUid,
     required this.transferSyntaxUidName,
     required this.patientName,
@@ -48,6 +56,8 @@ class Dicom {
   });
   Dicom copyWith({
     String? pixelData,
+    String? rows,
+    String? columns,
     String? transferSyntaxUid,
     String? transferSyntaxUidName,
     String? patientName,
@@ -60,6 +70,8 @@ class Dicom {
   }) {
     return Dicom(
       pixelData: pixelData ?? this.pixelData,
+      rows: rows ?? this.rows,
+      columns: columns ?? this.columns,
       transferSyntaxUid: transferSyntaxUid ?? this.transferSyntaxUid,
       transferSyntaxUidName:
           transferSyntaxUidName ?? this.transferSyntaxUidName,
@@ -75,6 +87,6 @@ class Dicom {
 
   @override
   String toString() {
-    return 'Dicom(pixelData: $pixelData, transferSyntaxUid: $transferSyntaxUid, transferSyntaxUidName: $transferSyntaxUidName, patientName: $patientName, imageType: $imageType, patientId: $patientId, fileName: $fileName, instanceCreationDate: $instanceCreationDate, instanceCreationTime: $instanceCreationTime, modality: $modality)';
+    return 'Dicom(pixelData: $pixelData, rows: $rows , columns: $columns , transferSyntaxUid: $transferSyntaxUid, transferSyntaxUidName: $transferSyntaxUidName, patientName: $patientName, imageType: $imageType, patientId: $patientId, fileName: $fileName, instanceCreationDate: $instanceCreationDate, instanceCreationTime: $instanceCreationTime, modality: $modality)';
   }
 }

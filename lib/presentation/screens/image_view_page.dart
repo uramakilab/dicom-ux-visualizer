@@ -1,10 +1,14 @@
+import 'dart:async';
 import 'dart:convert';
+import 'dart:ui';
+import 'package:image/image.dart' as img;
 
 import 'package:dicom_viewer/logic/dtos/dicom.dart';
 import 'package:dicom_viewer/presentation/widgets/dicom_detail_widget.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-
+import 'dart:ui' as ui;
+import 'dart:typed_data';
 import '../palette/colors.dart';
 
 class ImageViewPage extends StatefulWidget {
@@ -16,21 +20,28 @@ class ImageViewPage extends StatefulWidget {
 }
 
 class _ImageViewPageState extends State<ImageViewPage> {
-
-  late Uint8List? _imageBytes;
+  //Future<ui.Image> get image async => await _getImage((RegExp(r'\d+').allMatches(base64Decode(widget.dicom!.pixelData).toString())).map<int>((e) => int.parse(e.group(0)!)).toList(), int.parse(widget.dicom!.rows), int.parse(widget.dicom!.columns));
 
   @override
-  void initState() {
-    _getImage();
+  void initState() { 
     super.initState();
   }
 
-  void _getImage() {
-    _imageBytes = base64.decode(widget.dicom!.pixelData.replaceAll(RegExp(r"'"), "").replaceAll(RegExp(r"="), ''));
-  }
+  /*
+    (RegExp(r'\d+').allMatches(base64Decode(widget.dicom!.pixelData).toString())).map<int>((e) => int.parse(e.group(0)!)).toList()
+  
 
+  
+  Future<ui.Image> _getImage(List<int> pixels, int width, int height) async {
+    final completer = Completer<ui.Image>();
+    final bytes = Uint8List.fromList(pixels).buffer.asUint8List();
+    ui.decodeImageFromPixels(bytes, width, height, ui.PixelFormat.rgba8888,
+        (ui.Image img) => completer.complete(img));
+    return completer.future;
+  }*/
 
   @override
+
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: ColorPalette.primary,
@@ -43,13 +54,14 @@ class _ImageViewPageState extends State<ImageViewPage> {
           ),
         ),
       ),
-      body: ListView(
+      body: 
+      ListView(
         children: [
-          Image.memory(Uint8List.fromList(_imageBytes!)),
+          Placeholder(),
           Padding(
             padding: const EdgeInsets.only(top: 10),
             child: DicomDetailWidget(
-              title: widget.dicom!.patientName,
+              title: widget.dicom!.pixelData,
               icon: Icons.person_outlined,
               label: 'patient name',
             ),

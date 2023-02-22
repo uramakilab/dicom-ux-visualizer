@@ -3,6 +3,7 @@ import pydicom
 import base64
 from flask import Flask, request, redirect, jsonify
 from werkzeug.utils import secure_filename
+import numpy as np
 
 
 dicoms = os.path.dirname(os.path.abspath(__file__)) + '/uploads/'
@@ -27,8 +28,9 @@ def dicomParse():
     args = request.args.get("item")
     files = os.listdir(dicoms)
     ds = pydicom.dcmread(dicoms + files[int(args)])
-
-    pixelData = base64.b64encode(ds.PixelData)
+    rows = ds.Rows
+    columns = ds.Columns
+    pixelData = ds.pixel_array
     transferSyntaxUid = ds.file_meta.TransferSyntaxUID
     transferSyntaxUidName = transferSyntaxUid.name
     patientName = ds.PatientName
@@ -42,6 +44,8 @@ def dicomParse():
 
     return jsonify({
         "pixelData": f"{pixelData}",
+        "rows":f"{rows}",
+        "columns":f"{columns}",
         "transferSyntaxUid": f"{transferSyntaxUid}",
         "transferSyntaxUidName": f"{transferSyntaxUidName}",
         "patientName": f"{patientName}",
@@ -50,7 +54,6 @@ def dicomParse():
         "fileName": f"{fileName}",
         "instanceCreationDate": f"{instanceCreationDate}",
         "instanceCreationTime": f"{instanceCreationTime}",
-        #"modality": f"{args}",
         "modality": f"{modality}",
     })
 

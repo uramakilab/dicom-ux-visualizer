@@ -46,3 +46,5 @@ app.*.map.json
 # Api related
 /api/dicomParse
 /api/uploads
+/api/downloads
+/api/test

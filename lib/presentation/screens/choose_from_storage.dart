@@ -1,10 +1,12 @@
 import 'dart:convert';
 import 'package:dicom_viewer/logic/dtos/dicom_dto.dart';
+import 'package:dicom_viewer/presentation/screens/scroll_page.dart';
 import 'package:http/http.dart';
 import 'package:dicom_viewer/presentation/palette/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
 import 'image_view_page.dart';
+import 'dart:convert';
 
 class ChooseFromStorage extends StatefulWidget {
   const ChooseFromStorage({super.key});
@@ -14,7 +16,7 @@ class ChooseFromStorage extends StatefulWidget {
 }
 
 class _ChooseFromStorageState extends State<ChooseFromStorage> {
-  final url = 'https://5db4-200-211-62-61.ngrok.io';
+  final url = 'https://94df-200-211-62-61.ngrok.io';
   late FilePickerResult? choice;
   String? message;
   bool isLoading = true;
@@ -41,6 +43,17 @@ class _ChooseFromStorageState extends State<ChooseFromStorage> {
     final query = {'item': '$index'};
     Response response =
         await get(Uri.parse(url).replace(queryParameters: query));
+    setState(() {
+      isLoading = false;
+    });
+    return response.body;
+  }
+
+  Future _getImages(url) async {
+    setState(() {
+      isLoading = true;
+    });
+    Response response = await get(Uri.parse(url + '/getAllImages'));
     setState(() {
       isLoading = false;
     });
@@ -128,6 +141,37 @@ class _ChooseFromStorageState extends State<ChooseFromStorage> {
                     ),
                   ),
                 ],
+                SizedBox(
+                  height: 10,
+                ),
+                Align(
+                  alignment: Alignment.bottomCenter,
+                  child: OutlinedButton(
+                    style: OutlinedButton.styleFrom(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(18.0),
+                      ),
+                      side: BorderSide(width: 2, color: ColorPalette.secondary),
+                    ),
+                    onPressed: () async {
+                      var data = await _getImages(url);
+                      String decoded = (jsonDecode(data)['images']);
+                      var treated = decoded.replaceAll("'", '"');
+                      List<dynamic> jsonParsed = json.decode(treated);
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => ScrollPage(
+                            imageData: jsonParsed,
+                          ),
+                        ),
+                      );
+                    },
+                    child: Text(
+                      'take to scroll viewer',
+                      style: TextStyle(color: ColorPalette.text),
+                    ),
+                  ),
+                )
               ],
             ),
     );

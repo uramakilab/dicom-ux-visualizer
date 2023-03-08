@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:dicom_viewer/logic/dtos/dicom.dart';
 import 'package:dicom_viewer/presentation/widgets/dicom_detail_widget.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import '../palette/colors.dart';
@@ -36,7 +37,9 @@ class _ImageViewPageState extends State<ImageViewPage> {
       body: ListView(
         children: [
           Center(
-            child: Image.memory(base64Decode(widget.dicom!.pixelData)),
+            child: /*Image.memory(
+              Uint8List.fromList(widget.dicom!.pixelData),
+            ),*/ Image.memory(base64Decode(widget.dicom!.pixelData)),
           ),
           Padding(
             padding: const EdgeInsets.only(top: 10),

@@ -31,23 +31,26 @@ def getDicom():
 def dicomParse():
     args = request.args.get("item")
     files = os.listdir(dicoms)
-    ds = pydicom.dcmread(dicoms + files[int(args)])
+    ds = pydicom.dcmread(dicoms + files[int(args)]) #0
 
-    fig = plt.figure(frameon=False)
-    ax = plt.Axes(fig, [0.,0.,1.,1.])
-    ax.set_axis_off()
-    fig.add_axes(ax)
-    ax = plt.imshow(ds.pixel_array, cmap=plt.cm.gray)
-    fig.savefig(png + files[int(args)] + '.jpeg')
+    # fig = plt.figure(frameon=False)
+    # ax = plt.Axes(fig, [0.,0.,1.,1.])
+    # ax.set_axis_off()
+    # fig.add_axes(ax)
+    # ax = plt.imshow(ds.pixel_array, cmap=plt.cm.gray)
+    # fig.savefig(png + files[int(args)] + '.jpeg')
 
     rows = ds.Rows
     columns = ds.Columns
-    files = os.listdir(png)
-    
+    #files = os.listdir(png)
+    #with open(png + files[int(args)], "rb") as imageFile:
+    #pixelData = base64.b64encode(np.ndarray.tobytes(ds.pixel_array)).decode('ascii') 
 
-    with open(png + files[int(args)], "rb") as imageFile:
-        str = base64.b64encode(imageFile.read()).decode('ascii')
-        pixelData = str
+    image = img.fromarray(ds.pixel_array)
+    buffer = io.BytesIO()
+    image = image.convert('RGB')
+    image.save(buffer, format='PNG')
+    pixelData = base64.b64encode(buffer.getvalue()).decode('utf-8')
     
 
     transferSyntaxUid = ds.file_meta.TransferSyntaxUID
@@ -62,7 +65,7 @@ def dicomParse():
     
 
     return jsonify({
-        "pixelData": f"{pixelData}",
+        "pixelData":f'{pixelData}',
         "rows":f"{rows}",
         "columns":f"{columns}",
         "transferSyntaxUid": f"{transferSyntaxUid}",

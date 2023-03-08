@@ -1,5 +1,6 @@
 import io
 import os
+import time
 import pydicom
 import base64
 from flask import Flask, request, redirect, jsonify
@@ -32,7 +33,11 @@ def dicomParse():
     files = os.listdir(dicoms)
     ds = pydicom.dcmread(dicoms + files[int(args)]) #0
 
-    image = img.fromarray(ds.pixel_array).convert('RGB')
+    test = ds.pixel_array.astype(float)
+    rescaled = (np.maximum(test, 0)/test.max()) * 255
+    final = np.uint8(rescaled)
+
+    image = img.fromarray(final)
     buffer = io.BytesIO()
     image.save(buffer, format='PNG')
     pixelData = base64.b64encode(buffer.getvalue()).decode('utf-8')
@@ -83,12 +88,15 @@ def getImages():
     
     for file in files:
         ds = pydicom.dcmread(dicoms + file)
-        image = img.fromarray(ds.pixel_array)
+        test = ds.pixel_array.astype(float)
+        rescaled = (np.maximum(test, 0)/test.max()) * 255
+        final = np.uint8(rescaled)
+        image = img.fromarray(final)
         buffer = io.BytesIO()
-        image = image.convert('1')
         image.save(buffer, format='PNG')
         pixelData = base64.b64encode(buffer.getvalue()).decode('utf-8')
         images.append(pixelData)
+        time.sleep(0.5)
 
     return jsonify({
         "images":f"{images}"

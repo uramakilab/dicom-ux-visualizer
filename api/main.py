@@ -96,7 +96,7 @@ def getImages():
         image.save(buffer, format='PNG')
         pixelData = base64.b64encode(buffer.getvalue()).decode('utf-8')
         images.append(pixelData)
-        time.sleep(0.5)
+        time.sleep(0.1)
 
     return jsonify({
         "images":f"{images}"

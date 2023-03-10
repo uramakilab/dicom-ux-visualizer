@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 
 class ScrollPage extends StatefulWidget {
   const ScrollPage({super.key, required this.imageData});
-  final List<dynamic> imageData;
+  final List<Uint8List> imageData;
 
   @override
   State<ScrollPage> createState() => _ScrollPageState();
@@ -14,7 +14,7 @@ class ScrollPage extends StatefulWidget {
 
 class _ScrollPageState extends State<ScrollPage> {
   bool isLoading = true;
-  String display = '';
+  int display = 0;
   double sliderValue = 1;
 
   @override
@@ -46,7 +46,7 @@ class _ScrollPageState extends State<ScrollPage> {
             child: Container(
               height: double.infinity,
               child: Center(
-                child: Image.memory(base64Decode(display)),
+                child: Image.memory(widget.imageData[display]),
               ),
             ),
           ),
@@ -59,7 +59,7 @@ class _ScrollPageState extends State<ScrollPage> {
               onChanged: (newValue) {
                 setState(() {
                   sliderValue = newValue;
-                  display = widget.imageData[newValue.toInt() - 1];
+                  display = newValue.toInt() - 1;
                 });
               },
               divisions: widget.imageData.length -1,

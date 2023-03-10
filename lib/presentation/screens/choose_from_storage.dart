@@ -16,7 +16,7 @@ class ChooseFromStorage extends StatefulWidget {
 }
 
 class _ChooseFromStorageState extends State<ChooseFromStorage> {
-  final url = 'https://e515-200-211-62-61.ngrok.io';
+  final url = 'https://9762-2804-14d-90af-8309-9077-5489-12db-1da0.ngrok.io';
   late FilePickerResult? choice;
   String? message;
   bool isLoading = true;
@@ -161,7 +161,7 @@ class _ChooseFromStorageState extends State<ChooseFromStorage> {
                       Navigator.of(context).push(
                         MaterialPageRoute(
                           builder: (context) => ScrollPage(
-                            imageData: jsonParsed,
+                            imageData: jsonParsed.map((e) => base64Decode(e)).toList(),
                           ),
                         ),
                       );
